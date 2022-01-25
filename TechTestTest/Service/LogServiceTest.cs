@@ -9,15 +9,22 @@ namespace TechTestTest.Service
     public class LogServiceTest
     {
         [Test]
-        [TestCase("1",null,"Test")]
+        [TestCase("1", null, "Test")]
         [TestCase("1", "2022-01-25", null)]
         public void LogMessageWithNullValue(string id, string date, string message)
         {
             Mock<IFileRepository> mockFileRepository = new();
-            DateTime? datetime = date==null?null:DateTime.Parse(date);
             ILogService _logService = new LogService(mockFileRepository.Object);
-            Assert.Throws<NullReferenceException>(() => _logService.LogMessage(id, new TechTest.Model.LogMessage() { Date = datetime, Message= message})) ;
+            Assert.Throws<NullReferenceException>(() => _logService.LogMessage(id, new TechTest.Model.LogMessage() { Date = date, Message = message }));
+        }
 
+        [Test]
+        [TestCase("2022/1/1")]
+        public void LogMessageWithInvalidDateFormat(string date)
+        {
+            Mock<IFileRepository> mockFileRepository = new();
+            ILogService _logService = new LogService(mockFileRepository.Object);
+            Assert.Throws<Exception>(() => _logService.LogMessage("1", new TechTest.Model.LogMessage() { Date = date, Message = "Test" }), "Invalid date format");
         }
 
     }
