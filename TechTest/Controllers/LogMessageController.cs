@@ -9,8 +9,8 @@ namespace TechTest.Controllers
     [ApiController]
     public class LogMessageController : ControllerBase
     {
-        private ILogService _logService;
-        private NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly ILogService _logService;
+        private readonly NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         public LogMessageController(ILogService logService)
         {
             _logService = logService;
