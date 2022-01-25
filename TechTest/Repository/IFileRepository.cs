@@ -2,6 +2,6 @@
 {
     public interface IFileRepository
     {
-        void AddMessage(string id, DateTime date, string message);
+        void AddMessage(string id, string date, string message);
     }
 }
